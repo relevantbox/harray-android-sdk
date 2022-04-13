@@ -28,4 +28,4 @@ jobs:
       run: ./gradlew clean build
 
     - name: Publish SDK
-        run: ./gradlew android-sdk:uploadArchives
+      run: ./gradlew android-sdk:uploadArchives
