@@ -1,29 +1,11 @@
-# Xennio-Android-SDK
+# Relevantbox-Android-SDK
 
 [![Build Status](https://travis-ci.com/rb/harray-android-sdk.svg?branch=master)](https://travis-ci.com/rb/harray-android-sdk)
 [![codecov](https://codecov.io/gh/rb/harray-android-sdk/branch/master/graph/badge.svg)](https://codecov.io/gh/rb/harray-android-sdk)
 ![GitHub](https://img.shields.io/github/license/rb/harray-android-sdk?style=flat-square)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.relevantbox/android-sdk/badge.svg?style=plastic)](https://maven-badges.herokuapp.com/maven-central/io.relevantbox/android-sdk)
 
-# Integration Guide
-This guide provides necessary steps to implement Xenn.io Android SDK for native applications. 
-
-### Setup
-
-1. [Prerequisites](https://github.com/rb/harray-android-sdk/wiki/Prerequisites)
-2. [Creating Application](https://github.com/rb/harray-android-sdk/wiki/Creating-Application)
-3. [Installing the SDK](https://github.com/rb/harray-android-sdk/wiki/Installing-the-SDK)
-4. [Identifying Members](https://github.com/rb/harray-android-sdk/wiki/Identifying-Members)
-5. [Page Views Events](https://github.com/rb/harray-android-sdk/wiki/Page-Views-Events)
-6. [User Action Events](https://github.com/rb/harray-android-sdk/wiki/User-Action-Events)
-7. [Impression Events](https://github.com/rb/harray-android-sdk/wiki/Impression-Events)
-8. [Custom Events](https://github.com/rb/harray-android-sdk/wiki/Custom-Events)
-
-### Push Notifications
-
-1. [Setup]
-2. [Intent Support]
 
 ## License
 
-Xenn.io Android SDK is available under the [MIT license](LICENSE).
+relevantbox.io Android SDK is available under the [MIT license](LICENSE).
