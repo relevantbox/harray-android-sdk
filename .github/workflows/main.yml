@@ -14,10 +14,8 @@ jobs:
         distribution: temurin
         java-version: 8
         cache: gradle
-        
     - name: Setup Gradle
       uses: gradle/gradle-build-action@v2
-
     - name: Import GPG key
       uses: hashicorp/ghaction-import-gpg@v2.1.0
       env:
@@ -26,7 +24,6 @@ jobs:
       - run: |
           touch ringfile.txt
           gpg --detach-sig ringfile.txt
-
     - name: Restore gradle.properties
       env:
         GRADLE_PROPERTIES: ${{ secrets.GRADLE_PROPERTIES }}
@@ -35,9 +32,7 @@ jobs:
         mkdir -p ~/.gradle/
         echo "GRADLE_USER_HOME=$HOME/.gradle" >> $GITHUB_ENV
         echo ${GRADLE_PROPERTIES} > ~/.gradle/gradle.properties
-
     - name: Execute Gradle build
       run: ./gradlew clean build
-
     - name: Publish SDK
       run: ./gradlew android-sdk:uploadArchives
