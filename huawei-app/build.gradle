@@ -4,7 +4,7 @@ apply plugin: 'com.huawei.agconnect'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "io.xenn.demo"
+        applicationId "io.relevantbox.demo"
         minSdkVersion 19
         targetSdkVersion 28
         versionCode 1

@@ -8,7 +8,7 @@ apply plugin: 'com.bmuschko.nexus'
 apply plugin: 'jacoco-android'
 
 archivesBaseName = 'hms-kit'
-group = "io.xenn"
+group = "io.relevantbox"
 version = "1.0.2"
 
 android {
@@ -81,7 +81,7 @@ modifyPom {
 publishing {
     publications {
         androidSdk(MavenPublication) {
-            groupId "io.xenn"
+            groupId "io.relevantbox"
             artifactId "hms-kit"
             version "1.0.2"
             artifact "$buildDir/outputs/aar/hms-kit-release.aar"

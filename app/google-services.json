@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:902173982097:android:35c2d1f0dcd4e6b4",
         "android_client_info": {
-          "package_name": "io.xenn"
+          "package_name": "io.relevantbox"
         }
       },
       "oauth_client": [
@@ -39,7 +39,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:902173982097:android:ef17fd3911357971",
         "android_client_info": {
-          "package_name": "io.xenn.demo"
+          "package_name": "io.relevantbox.demo"
         }
       },
       "oauth_client": [
