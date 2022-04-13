@@ -40,6 +40,11 @@ android {
     }
 }
 
+tasks.withType(Test) {
+    jacoco.includeNoLocationClasses = true
+    jacoco.excludes = ['jdk.internal.*']
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     compileOnly project(path: ':android-sdk')

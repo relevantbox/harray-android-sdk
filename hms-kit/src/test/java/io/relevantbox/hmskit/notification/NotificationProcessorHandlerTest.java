@@ -105,7 +105,7 @@ public class NotificationProcessorHandlerTest {
         externalParameters.put("campaignId", "campaignId");
         externalParameters.put("campaignDate", "campaignDate");
         externalParameters.put("url", "url");
-        externalParameters.put("source", "xennio");
+        externalParameters.put("source", "relevantbox");
         externalParameters.put("utm_medium", "utm_medium");
         externalParameters.put("utm_campaign", "utm_campaign");
         externalParameters.put("utm_term", "utm_term");
