@@ -18,6 +18,15 @@ jobs:
     - name: Setup Gradle
       uses: gradle/gradle-build-action@v2
 
+    - name: Import GPG key
+      uses: hashicorp/ghaction-import-gpg@v2.1.0
+      env:
+        GPG_PRIVATE_KEY: ${{ secrets.NEXUS_GPC_KEY }}
+        PASSPHRASE: ${{ secrets.NEXUS_GPC_PASSWORD }}
+      - run: |
+          touch ringfile.txt
+          gpg --detach-sig ringfile.txt
+
     - name: Restore gradle.properties
       env:
         GRADLE_PROPERTIES: ${{ secrets.GRADLE_PROPERTIES }}
