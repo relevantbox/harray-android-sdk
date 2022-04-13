@@ -2,9 +2,9 @@ package io.relevantbox.hmskit.common;
 
 public class Constants {
 
-    public static final String PUSH_CHANNEL_ID = "xennio";
-    public static final String PUSH_CHANNEL_NAME = "Xenn IO Channel";
-    public static final String PUSH_CHANNEL_DESCRIPTION = "Channel for xenn.io push message notification";
+    public static final String PUSH_CHANNEL_ID = "relevantbox";
+    public static final String PUSH_CHANNEL_NAME = "RB IO Channel";
+    public static final String PUSH_CHANNEL_DESCRIPTION = "Channel for relevantbox.io push message notification";
     public static final String PUSH_PAYLOAD_SOUND = "sound";
     public static final String PUSH_PAYLOAD_TITLE = "title";
     public static final String PUSH_PAYLOAD_MESSAGE = "message";

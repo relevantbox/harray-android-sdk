@@ -58,7 +58,7 @@ public class RBTest {
     }
 
     @Test
-    public void it_should_initialized_shared_prefs_with_xenn_key() {
+    public void it_should_initialized_shared_prefs_with_rb_key() {
         when(context.getSharedPreferences(Constants.PREF_COLLECTION_NAME, Context.MODE_PRIVATE)).thenReturn(mockSharedPreferences);
         when(mockSharedPreferences.edit()).thenReturn(mockEditor);
 
