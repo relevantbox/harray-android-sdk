@@ -7,12 +7,19 @@ jobs:
       matrix:
         os: [ubuntu-latest]
     runs-on: ${{ matrix.os }}
+    env:
+      signing.keyId: ${{ secrets.NEXUS_GPC_KEY_ID }}
+      signing.password: ${{ secrets.NEXUS_GPC_PASSWORD }}
+      signing.key: ${{ secrets.NEXUS_GPC_KEY }}
+      ossrhUsername: ${{ secrets.NEXUS_USERNAME }}
+      ossrhPassword: ${{ secrets.NEXUS_PASSWORD }}
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-java@v2
       with:
         distribution: temurin
         java-version: 8
+        cache: gradle
         
     - name: Setup Gradle
       uses: gradle/gradle-build-action@v2
@@ -20,12 +27,5 @@ jobs:
     - name: Execute Gradle build
       run: ./gradlew clean build
 
-    - name: Publish to Nexus
-      uses: sonatype-nexus-community/iq-github-action@master
-      with:
-        serverUrl: https://s01.oss.sonatype.org
-        username: ${{ secrets.NEXUS_USERNAME }}
-        password: ${{ secrets.NEXUS_PASSWORD }}
-        applicationId: android-sdk
-        stage: Build
-        target: ./target/
+    - name: Publish SDK
+        run: ./gradlew android-sdk:uploadArchives
