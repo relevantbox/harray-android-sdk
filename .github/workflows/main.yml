@@ -19,3 +19,13 @@ jobs:
     
     - name: Execute Gradle build
       run: ./gradlew clean build
+
+    - name: Publish to Nexus
+      uses: sonatype-nexus-community/iq-github-action@master
+      with:
+        serverUrl: http://nexus-iq-server
+        username: ${{ secrets.NEXUS_USERNAME }}
+        password: ${{ secrets.NEXUS_PASSWORD }}
+        applicationId: android-sdk
+        stage: Build
+        target: ./target/

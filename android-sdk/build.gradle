@@ -65,18 +65,18 @@ dependencies {
 modifyPom {
     project {
         name 'android-sdk'
-        description 'Xenn.io Android SDK'
-        url 'https://xenn.io'
+        description 'relevantbox.io Android SDK'
+        url 'https://relevantbox.io'
         inceptionYear '2019'
         developers {
             developer {
-                id 'devxenn'
-                name 'Xenn Developer'
-                email 'developer@xenn.io'
+                id 'yadiguzel'
+                name 'Relevantbox Developer'
+                email 'developer@relevantbox.io'
             }
         }
         scm {
-            url 'https://xenn.io'
+            url 'https://relevantbox.io'
         }
         licenses {
             license {
