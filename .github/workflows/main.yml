@@ -21,14 +21,13 @@ jobs:
       env:
         GPG_PRIVATE_KEY: ${{ secrets.NEXUS_GPC_KEY }}
         PASSPHRASE: ${{ secrets.NEXUS_GPC_PASSWORD }}
-      run: |
-        touch ringfile.txt
-        gpg --detach-sig ringfile.txt
     - name: Restore gradle.properties
       env:
         GRADLE_PROPERTIES: ${{ secrets.GRADLE_PROPERTIES }}
       shell: bash
       run: |
+        touch ringfile.txt
+        gpg --detach-sig ringfile.txt
         mkdir -p ~/.gradle/
         echo "GRADLE_USER_HOME=$HOME/.gradle" >> $GITHUB_ENV
         echo ${GRADLE_PROPERTIES} > ~/.gradle/gradle.properties
