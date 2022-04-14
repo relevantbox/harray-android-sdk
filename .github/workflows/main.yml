@@ -28,11 +28,12 @@ jobs:
         GRADLE_PROPERTIES: ${{ secrets.GRADLE_PROPERTIES }}
       shell: bash
       run: |
-        gpg --export-secret-keys -o ~/secring.kbx
         mkdir -p ~/.gradle/
         echo "GRADLE_USER_HOME=$HOME/.gradle" >> $GITHUB_ENV
         echo ${GRADLE_PROPERTIES} > ~/.gradle/gradle.properties
     - name: Execute Gradle build
-      run: ./gradlew clean build
+      run: |
+        cat ~/.gradle/gradle.properties
+        ./gradlew clean build
     - name: Publish SDK
       run: ./gradlew android-sdk:uploadArchives
