@@ -17,14 +17,10 @@ jobs:
     - name: Setup Gradle
       uses: gradle/gradle-build-action@v2
     - name: Import GPG key
-      id: import_gpg
-      uses: hashicorp/ghaction-import-gpg@v2.1.0
-      env:
-        GPG_PRIVATE_KEY: ${{ secrets.GPG_SECRET }}
-        PASSPHRASE: ${{ secrets.NEXUS_GPC_PASSWORD }}
-    - run: |
-        touch foo.txt
-        gpg --detach-sig foo.txt
+      uses: crazy-max/ghaction-import-gpg@v4
+      with:
+        gpg_private_key: ${{ secrets.GPG_SECRET }}
+        passphrase: ${{ secrets.NEXUS_GPC_PASSWORD }}
     - name: List keys
       run: gpg --list-secret-keys
     - name: Set Gradle Properties
@@ -34,3 +30,7 @@ jobs:
       run: |
         mkdir -p ~/.gradle/
         echo ${GRADLE_PROPERTIES} > ~/.gradle/gradle.properties
+    - name: Execute Gradle build
+      run: ./gradlew clean build
+    - name: Publish SDK
+      run: ./gradlew android-sdk:uploadArchives
