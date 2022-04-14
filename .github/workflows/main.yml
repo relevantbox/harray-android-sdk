@@ -17,20 +17,15 @@ jobs:
     - name: Setup Gradle
       uses: gradle/gradle-build-action@v2
     - name: Import GPG key
-      uses: hashicorp/ghaction-import-gpg@v2.1.0
-      env:
-        GPG_PRIVATE_KEY: ${{ secrets.NEXUS_GPC_KEY }}
-        PASSPHRASE: ${{ secrets.NEXUS_GPC_PASSWORD }}
-    - name: Restore gradle.properties
-      env:
-        GRADLE_PROPERTIES: ${{ secrets.GRADLE_PROPERTIES }}
       shell: bash
       run: |
-        touch ringfile.txt
-        gpg --detach-sig ringfile.txt
+        echo ${{ secrets.GPG_OWNER_TRUST }} > ~/relevant-ownertrust-gpg.txt
+        echo ${{ secrets.GPG_SECRET }} > ~/relevant-secret-gpg.key
+        gpg --import ~/relevant-secret-gpg.key
+        gpg --import-ownertrust ~/relevant-ownertrust-gpg.txt
         mkdir -p ~/.gradle/
         echo "GRADLE_USER_HOME=$HOME/.gradle" >> $GITHUB_ENV
-        echo ${GRADLE_PROPERTIES} > ~/.gradle/gradle.properties
+        echo ${{ secrets.GRADLE_PROPERTIES }} > ~/.gradle/gradle.properties
     - name: Execute Gradle build
       run: ./gradlew clean build
     - name: Publish SDK
