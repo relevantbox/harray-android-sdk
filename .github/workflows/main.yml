@@ -28,7 +28,7 @@ jobs:
         GRADLE_PROPERTIES: ${{ secrets.GRADLE_PROPERTIES }}
       shell: bash
       run: |
-        ls -la /home/runner/.gnupg/
+        cp /home/runner/.gnupg/trustdb.gpg /home/runner/.gnupg/secring.gpg
         mkdir -p ~/.gradle/
         echo ${GRADLE_PROPERTIES} > ~/.gradle/gradle.properties
     - name: Execute Gradle build
