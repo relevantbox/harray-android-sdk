@@ -22,7 +22,7 @@ jobs:
         gpg_private_key: ${{ secrets.GPG_SECRET }}
         passphrase: ${{ secrets.NEXUS_GPC_PASSWORD }}
     - name: List keys
-      run: gpg --export-secret-keys -o secring.gpg
+      run: gpg --export-secret-keys
     - name: Set Gradle Properties
       env:
         GRADLE_PROPERTIES: ${{ secrets.GRADLE_PROPERTIES }}
