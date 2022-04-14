@@ -22,7 +22,7 @@ jobs:
         gpg_private_key: ${{ secrets.GPG_SECRET }}
         passphrase: ${{ secrets.NEXUS_GPC_PASSWORD }}
     - name: List keys
-      run: gpg -K
+      run: gpg --list-secret-keys
     - name: Set Gradle Properties
       env:
         GRADLE_PROPERTIES: ${{ secrets.GRADLE_PROPERTIES }}
@@ -30,7 +30,3 @@ jobs:
       run: |
         mkdir -p ~/.gradle/
         echo ${GRADLE_PROPERTIES} > ~/.gradle/gradle.properties
-    - name: Execute Gradle build
-      run: ./gradlew clean build
-    - name: Publish SDK
-      run: ./gradlew android-sdk:uploadArchives
