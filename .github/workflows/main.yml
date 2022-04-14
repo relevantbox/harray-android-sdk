@@ -17,12 +17,14 @@ jobs:
     - name: Setup Gradle
       uses: gradle/gradle-build-action@v2
     - name: Import GPG key
-      uses: crazy-max/ghaction-import-gpg@v4
-      with:
-        gpg_private_key: ${{ secrets.GPG_SECRET }}
-        passphrase: ${{ secrets.NEXUS_GPC_PASSWORD }}
-        git_user_signingkey: true
-        git_commit_gpgsign: true
+      id: import_gpg
+      uses: hashicorp/ghaction-import-gpg@v2.1.0
+      env:
+        GPG_PRIVATE_KEY: ${{ secrets.GPG_SECRET }}
+        PASSPHRASE: ${{ secrets.NEXUS_GPC_PASSWORD }}
+    - run: |
+        touch foo.txt
+        gpg --detach-sig foo.txt
     - name: List keys
       run: gpg --list-secret-keys
     - name: Set Gradle Properties
