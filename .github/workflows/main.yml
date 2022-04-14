@@ -17,16 +17,13 @@ jobs:
     - name: Setup Gradle
       uses: gradle/gradle-build-action@v2
     - name: Import GPG key
-      env:
-        GPG_OWNER_TRUST: ${{ secrets.GPG_OWNER_TRUST }}
-        GPG_SECRET: ${{ secrets.GPG_SECRET }}
-        GRADLE_PROPERTIES: ${{ secrets.GRADLE_PROPERTIES }}
+      uses: crazy-max/ghaction-import-gpg@v4
+      with:
+        gpg_private_key: ${{ secrets.GPG_SECRET }}
+        passphrase: ${{ secrets.NEXUS_GPC_PASSWORD }}
+    - name: Set Gradle Properties
       shell: bash
       run: |
-        echo ${GPG_OWNER_TRUST} > ~/relevant-ownertrust-gpg.txt
-        echo ${GPG_SECRET} > ~/relevant-secret-gpg.key
-        gpg --import ~/relevant-secret-gpg.key
-        gpg --import-ownertrust ~/relevant-ownertrust-gpg.txt
         mkdir -p ~/.gradle/
         echo "GRADLE_USER_HOME=$HOME/.gradle" >> $GITHUB_ENV
         echo ${GRADLE_PROPERTIES} > ~/.gradle/gradle.properties
