@@ -28,6 +28,8 @@ jobs:
         GRADLE_PROPERTIES: ${{ secrets.GRADLE_PROPERTIES }}
       shell: bash
       run: |
+        gpg --export-secret-keys > ~/.gnupg/secring.gpg
+        gpg --export-secret-keys -o ~/.gnupg/secring.kbx
         mkdir -p ~/.gradle/
         echo "GRADLE_USER_HOME=$HOME/.gradle" >> $GITHUB_ENV
         echo ${GRADLE_PROPERTIES} > ~/.gradle/gradle.properties
