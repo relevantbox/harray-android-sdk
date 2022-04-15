@@ -55,4 +55,4 @@ jobs:
       run: |
         ./gradlew android-sdk:uploadArchives
         ./gradlew fcm-kit:uploadArchives
-         /gradlew hms-kit:uploadArchives
+        ./gradlew hms-kit:uploadArchives
