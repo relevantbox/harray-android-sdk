@@ -60,18 +60,18 @@ dependencies {
 modifyPom {
     project {
         name 'hms-kit'
-        description 'Xenn.io Android SDK Hms Kit'
-        url 'https://xenn.io'
-        inceptionYear '2020'
+        description 'Relevantbox.io Android SDK Hms Kit'
+        url 'https://relevantbox.io'
+        inceptionYear '2019'
         developers {
             developer {
-                id 'devxenn'
-                name 'Xenn Developer'
-                email 'developer@xenn.io'
+                id 'yadiguzel'
+                name 'Relevantbox Developer'
+                email 'developer@relevantbox.io'
             }
         }
         scm {
-            url 'https://xenn.io'
+            url 'https://relevantbox.io'
         }
         licenses {
             license {
