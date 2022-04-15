@@ -45,8 +45,8 @@ jobs:
         cat << 'EOF' > ~/.gradle/gradle.properties
         signing.keyId=${{ env.key_id }}
         signing.password=${{ secrets.NEXUS_GPC_PASSWORD }}
-        ossrhUsername=${{ secrets.NEXUS_USERNAME }}
-        ossrhPassword=${{ secrets.NEXUS_PASSWORD }}
+        nexusUsername=${{ secrets.NEXUS_USERNAME }}
+        nexusPassword=${{ secrets.NEXUS_PASSWORD }}
         EOF
     - name: Execute Gradle build
       run: ./gradlew clean build
