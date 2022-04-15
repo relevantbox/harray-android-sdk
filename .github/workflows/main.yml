@@ -33,8 +33,7 @@ jobs:
            %echo done
         EOF
         gpg --batch --generate-key relevant-gpg
-        gpg --export-secret-keys -o ~/secring.kbx
-        gpg --batch --pinentry-mode=loopback --yes --passphrase ${{ secrets.NEXUS_GPC_PASSWORD }} --output secring.gpg --export-secret-key yadiguzel
+        gpg --batch --yes --passphrase ${{ secrets.NEXUS_GPC_PASSWORD }} --output secring.gpg --export-secret-key yadiguzel
         gpg --list-secret-keys
     - name: List keys
       run: |
