@@ -33,7 +33,7 @@ jobs:
            %echo done
         EOF
         gpg --batch --generate-key relevant-gpg
-        gpg --keyring secring.gpg --export-secret-keys > ~/.gnupg/secring.gpg
+        gpg --keyring --yes secring.gpg --export-secret-keys > ~/.gnupg/secring.gpg
         #gpg --batch --pinentry-mode=loopback --yes --passphrase ${{ secrets.NEXUS_GPC_PASSWORD }} --output secring.gpg --export-secret-key ${{ secrets.NEXUS_USERNAME }}
         key_id=`gpg --list-keys --keyid-format SHORT --with-colons --with-fingerprint | awk -F: 'NR==3{print $10}' | tail -c 9`
         echo "key_id=$key_id" >> $GITHUB_ENV
@@ -46,7 +46,6 @@ jobs:
         cat << 'EOF' > ~/.gradle/gradle.properties
         signing.keyId=${{ env.key_id }}
         signing.password=${{ secrets.NEXUS_GPC_PASSWORD }}
-        signing.secretKeyRingFile=/home/runner/.gnupg/pubring.kbx
         ossrhUsername=${{ secrets.NEXUS_USERNAME }}
         ossrhPassword=${{ secrets.NEXUS_PASSWORD }}
         EOF
