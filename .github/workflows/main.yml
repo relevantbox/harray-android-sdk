@@ -23,8 +23,8 @@ jobs:
            %echo Generating a basic OpenPGP key
            Key-Type: default
            Key-Length: 4096
-           Name-Real: yadiguzel
-           Name-Comment: with passphrase
+           Name-Real: ${{ secrets.NEXUS_USERNAME }}
+           Name-Comment: Relevant Box
            Name-Email: developer@relevantbox.io
            Expire-Date: 0
            Passphrase: ${{ secrets.NEXUS_GPC_PASSWORD }}
@@ -33,7 +33,7 @@ jobs:
            %echo done
         EOF
         gpg --batch --generate-key relevant-gpg
-        gpg --batch --yes --passphrase ${{ secrets.NEXUS_GPC_PASSWORD }} --output secring.gpg --export-secret-key yadiguzel
+        gpg -a --export ${{ secrets.NEXUS_USERNAME }} > secring.gpg
         gpg --list-secret-keys
     - name: List keys
       run: |
