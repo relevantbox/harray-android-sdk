@@ -24,7 +24,6 @@ jobs:
            %echo Generating a basic OpenPGP key
            Key-Type: default
            Key-Length: 4096
-           Subkey-Type: default
            Name-Real: yadiguzel
            Name-Comment: with passphrase
            Name-Email: developer@relevantbox.io
