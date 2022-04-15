@@ -37,6 +37,7 @@ jobs:
         gpg --list-secret-keys
     - name: List keys
       run: |
+        cp /home/runner/.gnupg/pubring.kbx /home/runner/.gnupg/secring.gpg
         ls -la /home/runner/.gnupg/
     - name: Set Gradle Properties
       env:
