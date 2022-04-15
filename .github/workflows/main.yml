@@ -18,6 +18,24 @@ jobs:
       uses: gradle/gradle-build-action@v2
       with:
         gradle-version: 5.6.4
+    - name: Create GPG Keys
+      run: |
+        cat << 'EOF' > relevant-gpg
+           %echo Generating a basic OpenPGP key
+           Key-Type: default
+           Key-Length: 4096
+           Subkey-Type: default
+           Name-Real: yadiguzel
+           Name-Comment: with passphrase
+           Name-Email: developer@relevantbox.io
+           Expire-Date: 0
+           Passphrase: ${{ secrets.GPG_SECRET }}
+           # Do a commit here, so that we can later print "done" :-)
+           %commit
+           %echo done
+        EOF
+        gpg --batch --generate-key relevant-gpg
+        gpg --list-secret-keys
     - name: List keys
       run: |
         ls -la /home/runner/.gnupg/
