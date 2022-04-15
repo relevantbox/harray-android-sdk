@@ -34,9 +34,8 @@ jobs:
         EOF
         gpg --batch --generate-key relevant-gpg
         gpg --batch --pinentry-mode=loopback --yes --passphrase ${{ secrets.NEXUS_GPC_PASSWORD }} --export-secret-key > ~/.gnupg/secring.gpg
-        key_id_long=`gpg --list-keys --keyid-format SHORT --with-colons --with-fingerprint | awk -F: 'NR==3{print $10}'`
         key_id=`gpg --list-keys --keyid-format SHORT --with-colons --with-fingerprint | awk -F: 'NR==3{print $10}' | tail -c 9`
-        gpg --keyserver keyserver.ubuntu.com --send-keys $key_id_long
+        gpg --keyserver keyserver.ubuntu.com --send-keys $key_id
         echo "key_id=$key_id" >> $GITHUB_ENV
         gpg --list-secret-keys
         ls -la /home/runner/.gnupg/
@@ -53,4 +52,7 @@ jobs:
     - name: Execute Gradle build
       run: ./gradlew clean build
     - name: Publish SDK
-      run: ./gradlew android-sdk:uploadArchives
+      run: |
+        ./gradlew android-sdk:uploadArchives
+        ./gradlew fcm-kit:uploadArchives
+         /gradlew hms-kit:uploadArchives
