@@ -41,18 +41,15 @@ jobs:
       run: |
         cp /home/runner/.gnupg/pubring.kbx /home/runner/.gnupg/secring.gpg
         ls -la /home/runner/.gnupg/
-        key_id=gpg --list-keys --keyid-format SHORT --with-colons --with-fingerprint | awk -F: 'NR==3{print $10}' | tail -c 9
+        key_id=`gpg --list-keys --keyid-format SHORT --with-colons --with-fingerprint | awk -F: 'NR==3{print $10}' | tail -c 9`
         echo "key_id=$key_id" >> $GITHUB_ENV
     - name: Set Gradle Properties
-      env:
-        GRADLE_PROPERTIES: ${{ secrets.GRADLE_PROPERTIES }}
       shell: bash
       run: |
         mkdir -p ~/.gradle/
         cat << 'EOF' > ~/.gradle/gradle.properties
         signing.keyId=${{ env.key_id }}
         signing.password=${{ secrets.NEXUS_GPC_PASSWORD }}
-        signing.secretKeyRingFile=/home/runner/.gnupg/pubring.kbx
         ossrhUsername=${{ secrets.NEXUS_USERNAME }}
         ossrhPassword=${{ secrets.NEXUS_PASSWORD }}
         EOF
