@@ -17,8 +17,6 @@ jobs:
         java-version: 8
     - name: Setup Gradle
       uses: gradle/gradle-build-action@v2
-      with:
-        gradle-version: 5.6.4
     - name: Create GPG Keys
       run: |
         cat << 'EOF' > relevant-gpg
@@ -47,6 +45,7 @@ jobs:
         cat << 'EOF' > ~/.gradle/gradle.properties
         signing.keyId=${{ env.key_id }}
         signing.password=${{ secrets.NEXUS_GPC_PASSWORD }}
+        signing.secretKeyRingFile=/home/runner/.gnupg/pubring.kbx
         ossrhUsername=${{ secrets.NEXUS_USERNAME }}
         ossrhPassword=${{ secrets.NEXUS_PASSWORD }}
         EOF
