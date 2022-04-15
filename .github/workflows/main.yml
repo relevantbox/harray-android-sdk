@@ -35,7 +35,7 @@ jobs:
            %echo done
         EOF
         gpg --batch --generate-key relevant-gpg
-        gpg -a --export ${{ secrets.NEXUS_USERNAME }} > /home/runner/.gnupg/secring.gpg
+        gpg --batch --pinentry-mode=loopback --yes --passphrase ${{ secrets.NEXUS_GPC_PASSWORD }} --output secring.gpg --export-secret-key ${{ secrets.NEXUS_USERNAME }}
         key_id=`gpg --list-keys --keyid-format SHORT --with-colons --with-fingerprint | awk -F: 'NR==3{print $10}' | tail -c 9`
         echo "key_id=$key_id" >> $GITHUB_ENV
         gpg --list-secret-keys
