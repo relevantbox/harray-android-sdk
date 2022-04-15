@@ -29,7 +29,7 @@ jobs:
            Name-Comment: with passphrase
            Name-Email: developer@relevantbox.io
            Expire-Date: 0
-           Passphrase: ${{ secrets.GPG_SECRET }}
+           Passphrase: ${{ secrets.NEXUS_GPC_PASSWORD }}
            # Do a commit here, so that we can later print "done" :-)
            %commit
            %echo done
