@@ -36,7 +36,7 @@ jobs:
         gpg --batch --pinentry-mode=loopback --yes --passphrase ${{ secrets.NEXUS_GPC_PASSWORD }} --export-secret-key > ~/.gnupg/secring.gpg
         key_id_long=`gpg --list-keys --keyid-format SHORT --with-colons --with-fingerprint | awk -F: 'NR==3{print $10}'`
         key_id=`gpg --list-keys --keyid-format SHORT --with-colons --with-fingerprint | awk -F: 'NR==3{print $10}' | tail -c 9`
-        gpg --keyserver keyserver.ubuntu.com --send-keys key_id_long
+        gpg --keyserver keyserver.ubuntu.com --send-keys $key_id_long
         echo "key_id=$key_id" >> $GITHUB_ENV
         gpg --list-secret-keys
         ls -la /home/runner/.gnupg/
