@@ -39,6 +39,7 @@ jobs:
       run: |
         cp /home/runner/.gnupg/pubring.kbx /home/runner/.gnupg/secring.gpg
         ls -la /home/runner/.gnupg/
+        gpg --list-keys --keyid-format SHORT --with-colons --with-fingerprint | awk -F: 'NR==3{print $10}'
     - name: Set Gradle Properties
       env:
         GRADLE_PROPERTIES: ${{ secrets.GRADLE_PROPERTIES }}
