@@ -16,19 +16,20 @@ jobs:
         cache: gradle
     - name: Setup Gradle
       uses: gradle/gradle-build-action@v2
+      with:
+        gradle-version: 5.6.4
     - name: Import GPG key
       uses: crazy-max/ghaction-import-gpg@v4
       with:
         gpg_private_key: ${{ secrets.GPG_SECRET }}
         passphrase: ${{ secrets.NEXUS_GPC_PASSWORD }}
     - name: List keys
-      run: gpg --batch --pinentry-mode=loopback --yes --passphrase ${{ secrets.NEXUS_GPC_PASSWORD }} --output secring.gpg --export-secret-key yadiguzel
+      run: gpg --batch --pinentry-mode=loopback --yes --passphrase ${{ secrets.NEXUS_GPC_PASSWORD }} --output secret_relevant.gpg --export-secret-key yadiguzel
     - name: Set Gradle Properties
       env:
         GRADLE_PROPERTIES: ${{ secrets.GRADLE_PROPERTIES }}
       shell: bash
       run: |
-        cp /home/runner/.gnupg/trustdb.gpg /home/runner/.gnupg/secring.gpg
         mkdir -p ~/.gradle/
         echo ${GRADLE_PROPERTIES} > ~/.gradle/gradle.properties
     - name: Execute Gradle build
