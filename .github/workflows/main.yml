@@ -35,14 +35,11 @@ jobs:
            %echo done
         EOF
         gpg --batch --generate-key relevant-gpg
-        #gpg -a --export ${{ secrets.NEXUS_USERNAME }} > secring.gpg
-        gpg --list-secret-keys
-    - name: List keys
-      run: |
-        cp /home/runner/.gnupg/pubring.kbx /home/runner/.gnupg/secring.gpg
-        ls -la /home/runner/.gnupg/
+        gpg -a --export ${{ secrets.NEXUS_USERNAME }} > /home/runner/.gnupg/secring.gpg
         key_id=`gpg --list-keys --keyid-format SHORT --with-colons --with-fingerprint | awk -F: 'NR==3{print $10}' | tail -c 9`
         echo "key_id=$key_id" >> $GITHUB_ENV
+        gpg --list-secret-keys
+        ls -la /home/runner/.gnupg/
     - name: Set Gradle Properties
       shell: bash
       run: |
