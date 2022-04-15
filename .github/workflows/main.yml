@@ -51,8 +51,6 @@ jobs:
         EOF
     - name: Execute Gradle build
       run: ./gradlew clean build
-    - name: Publish SDK
-      run: |
-        ./gradlew android-sdk:uploadArchives
-        ./gradlew fcm-kit:uploadArchives
-        ./gradlew hms-kit:uploadArchives
+    - uses: codecov/codecov-action@v2
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
