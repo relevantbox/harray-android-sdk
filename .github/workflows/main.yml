@@ -33,7 +33,7 @@ jobs:
            %echo done
         EOF
         gpg --batch --generate-key relevant-gpg
-        gpg -a --export ${{ secrets.NEXUS_USERNAME }} > secring.gpg
+        #gpg -a --export ${{ secrets.NEXUS_USERNAME }} > secring.gpg
         gpg --list-secret-keys
     - name: List keys
       run: |
