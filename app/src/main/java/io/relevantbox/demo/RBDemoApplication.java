@@ -14,7 +14,7 @@ public class RBDemoApplication extends Application {
         super.onCreate();
         RBConfig rbConfig =
                 RBConfig
-                        .init("RB-XMjJ4RzzvbPc0T2")
+                        .init("RELEVANT-w9ZYuu4uMYkHWJf")
                         .useRBPlugin(FcmKitPlugin.class).inAppNotificationLinkClickHandler(
                         new LinkClickHandler() {
                             @Override
