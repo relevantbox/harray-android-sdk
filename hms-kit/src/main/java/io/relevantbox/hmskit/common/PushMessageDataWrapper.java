@@ -85,17 +85,21 @@ public class PushMessageDataWrapper {
         return map;
     }
 
-    public String getPushId() {
-        return data.get(Constants.PUSH_ID_KEY);
+    public String getCampaignNonce() {
+        return data.get(Constants.CAMPAIGN_NONCE);
     }
-
     public String getCampaignId() {
         return data.get(Constants.CAMPAIGN_ID_KEY);
     }
 
-    public String getCampaignDate() {
-        return data.get(Constants.CAMPAIGN_DATE_KEY);
+    public String getPushType() {
+        return data.get(Constants.CAMPAIGN_PUSH_TYPE);
     }
+
+    public String getCustomerId() {
+        return data.get(Constants.CUSTOMER_ID);
+    }
+
 
     public Map<String, String> getData() {
         return data;

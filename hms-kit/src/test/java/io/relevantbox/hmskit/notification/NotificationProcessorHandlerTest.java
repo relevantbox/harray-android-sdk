@@ -72,9 +72,10 @@ public class NotificationProcessorHandlerTest {
 
         ArgumentCaptor<Map<String, Object>> rbEventArgumentCaptor = ArgumentCaptor.forClass(Map.class);
         Map<String, String> externalParameters = new HashMap<>();
-        externalParameters.put("pushId", "pushId");
+        externalParameters.put("customerId", "customerId");
         externalParameters.put("campaignId", "campaignId");
-        externalParameters.put("campaignDate", "campaignDate");
+        externalParameters.put("nonce", "nonce");
+        externalParameters.put("pushType", "pushType");
         externalParameters.put("url", "url");
         externalParameters.put("utm_source", "relevantbox");
         externalParameters.put("utm_medium", "utm_medium");
@@ -89,9 +90,10 @@ public class NotificationProcessorHandlerTest {
         Map<String, Object> rbEventMap = rbEventArgumentCaptor.getValue();
 
         assertEquals("d", rbEventMap.get("n"));
-        assertEquals("pushId", rbEventMap.get("pi"));
-        assertEquals("campaignId", rbEventMap.get("ci"));
-        assertEquals("campaignDate", rbEventMap.get("cd"));
+        assertEquals("campaignId", rbEventMap.get("campaignId"));
+        assertEquals("customerId", rbEventMap.get("customerId"));
+        assertEquals("nonce", rbEventMap.get("nonce"));
+        assertEquals("pushType", rbEventMap.get("pushType"));
 
         verify(httpService).postJsonEncoded("serializedEntity", "feedback");
     }
@@ -101,9 +103,10 @@ public class NotificationProcessorHandlerTest {
 
         ArgumentCaptor<Map<String, Object>> rbEventArgumentCaptor = ArgumentCaptor.forClass(Map.class);
         Map<String, String> externalParameters = new HashMap<>();
-        externalParameters.put("pushId", "pushId");
+        externalParameters.put("customerId", "customerId");
         externalParameters.put("campaignId", "campaignId");
-        externalParameters.put("campaignDate", "campaignDate");
+        externalParameters.put("nonce", "nonce");
+        externalParameters.put("pushType", "pushType");
         externalParameters.put("url", "url");
         externalParameters.put("source", "relevantbox");
         externalParameters.put("utm_medium", "utm_medium");
@@ -118,9 +121,10 @@ public class NotificationProcessorHandlerTest {
         Map<String, Object> rbEventMap = rbEventArgumentCaptor.getValue();
 
         assertEquals("o", rbEventMap.get("n"));
-        assertEquals("pushId", rbEventMap.get("pi"));
-        assertEquals("campaignId", rbEventMap.get("ci"));
-        assertEquals("campaignDate", rbEventMap.get("cd"));
+        assertEquals("campaignId", rbEventMap.get("campaignId"));
+        assertEquals("customerId", rbEventMap.get("customerId"));
+        assertEquals("nonce", rbEventMap.get("nonce"));
+        assertEquals("pushType", rbEventMap.get("pushType"));
 
         verify(httpService).postJsonEncoded("serializedEntity", "feedback");
     }

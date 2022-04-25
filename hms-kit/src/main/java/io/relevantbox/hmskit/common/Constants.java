@@ -13,8 +13,9 @@ public class Constants {
     public static final String PUSH_PAYLOAD_SOURCE = "source";
     public static final String PUSH_PAYLOAD_APPLICATION_LOGO = "logo";
     public static final String PUSH_PAYLOAD_SUB_TITLE = "subTitle";
-    public static final String PUSH_ID_KEY = "pushId";
+    public static final String CAMPAIGN_NONCE = "nonce";
     public static final String CAMPAIGN_ID_KEY = "campaignId";
-    public static final String CAMPAIGN_DATE_KEY = "campaignDate";
+    public static final String CUSTOMER_ID = "customerId";
+    public static final String CAMPAIGN_PUSH_TYPE = "pushType";
     public static final String PUSH_FEED_BACK_PATH = "feedback";
 }

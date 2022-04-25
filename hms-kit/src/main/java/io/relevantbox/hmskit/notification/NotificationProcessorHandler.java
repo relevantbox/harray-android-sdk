@@ -31,10 +31,10 @@ public class NotificationProcessorHandler {
     private final DeviceService deviceService;
 
     public NotificationProcessorHandler(ApplicationContextHolder applicationContextHolder,
-                                        SessionContextHolder sessionContextHolder,
-                                        HttpService httpService,
-                                        EntitySerializerService entitySerializerService,
-                                        DeviceService deviceService) {
+            SessionContextHolder sessionContextHolder,
+            HttpService httpService,
+            EntitySerializerService entitySerializerService,
+            DeviceService deviceService) {
         this.applicationContextHolder = applicationContextHolder;
         this.sessionContextHolder = sessionContextHolder;
         this.httpService = httpService;
@@ -44,7 +44,9 @@ public class NotificationProcessorHandler {
 
     public void savePushToken(String deviceToken) {
         try {
-            Map<String, Object> event = RBEvent.create("Collection", applicationContextHolder.getPersistentId(), sessionContextHolder.getSessionIdAndExtendSession())
+            Map<String, Object> event = RBEvent.create("Collection", applicationContextHolder.getPersistentId(),
+                    sessionContextHolder
+                    .getSessionIdAndExtendSession())
                     .memberId(sessionContextHolder.getMemberId())
                     .addBody("name", "pushToken")
                     .addBody("type", "hmsToken")
@@ -61,7 +63,9 @@ public class NotificationProcessorHandler {
 
     public void removeTokenAssociation(String deviceToken) {
         try {
-            Map<String, Object> event = RBEvent.create("TR", applicationContextHolder.getPersistentId(), sessionContextHolder.getSessionIdAndExtendSession())
+            Map<String, Object> event = RBEvent.create("TR", applicationContextHolder.getPersistentId(),
+                    sessionContextHolder
+                    .getSessionIdAndExtendSession())
                     .memberId(sessionContextHolder.getMemberId())
                     .addBody("name", "pushToken")
                     .addBody("type", "hmsToken")
@@ -91,11 +95,16 @@ public class NotificationProcessorHandler {
                 }
 
                 String notificationChannelId = pushMessageDataWrapper.buildChannelId();
-                NotificationManager notificationManager = (NotificationManager) applicationContext.getSystemService(Context.NOTIFICATION_SERVICE);
+                NotificationManager notificationManager =
+                        (NotificationManager) applicationContext.getSystemService(Context.NOTIFICATION_SERVICE);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && notificationManager != null) {
-                    NotificationChannelBuilder.create(deviceService).withChannelId(notificationChannelId).withSound(pushMessageDataWrapper.getSound()).createIn(notificationManager);
+                    NotificationChannelBuilder.create(deviceService)
+                            .withChannelId(notificationChannelId)
+                            .withSound(pushMessageDataWrapper.getSound())
+                            .createIn(notificationManager);
                 }
-                NotificationCompat.Builder notificationCompatBuilder = NotificationCompatBuilder.create(applicationContext, httpService, deviceService)
+                NotificationCompat.Builder notificationCompatBuilder =
+                        NotificationCompatBuilder.create(applicationContext, httpService, deviceService)
                         .withChannelId(notificationChannelId)
                         .withApplicationLogo(pushMessageDataWrapper.getApplicationLogo())
                         .withTitle(pushMessageDataWrapper.getTitle())
@@ -115,7 +124,8 @@ public class NotificationProcessorHandler {
     }
 
     public void resetBadgeCounts(Context applicationContext) {
-        NotificationManager notificationManager = (NotificationManager) applicationContext.getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManager notificationManager =
+                (NotificationManager) applicationContext.getSystemService(Context.NOTIFICATION_SERVICE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (notificationManager != null) {
                 notificationManager.cancelAll();
@@ -126,9 +136,11 @@ public class NotificationProcessorHandler {
     public void pushMessageDelivered(PushMessageDataWrapper pushMessageDataWrapper) {
         try {
             Map<String, Object> event = new FeedbackEvent("d",
-                    pushMessageDataWrapper.getPushId(),
+                    pushMessageDataWrapper.getCampaignNonce(),
                     pushMessageDataWrapper.getCampaignId(),
-                    pushMessageDataWrapper.getCampaignDate()).toMap();
+                    pushMessageDataWrapper.getCustomerId(),
+                    pushMessageDataWrapper.getPushType()
+            ).toMap();
 
             String serializedEntity = entitySerializerService.serializeToJson(event);
             httpService.postJsonEncoded(serializedEntity, Constants.PUSH_FEED_BACK_PATH);
@@ -147,9 +159,11 @@ public class NotificationProcessorHandler {
         if (pushMessageDataWrapper.getSource().equals(Constants.PUSH_CHANNEL_ID)) {
             try {
                 Map<String, Object> event = new FeedbackEvent("o",
-                        pushMessageDataWrapper.getPushId(),
+                        pushMessageDataWrapper.getCampaignNonce(),
                         pushMessageDataWrapper.getCampaignId(),
-                        pushMessageDataWrapper.getCampaignDate()).toMap();
+                        pushMessageDataWrapper.getCustomerId(),
+                        pushMessageDataWrapper.getPushType()
+                ).toMap();
 
                 String serializedEntity = entitySerializerService.serializeToJson(event);
                 httpService.postJsonEncoded(serializedEntity, Constants.PUSH_FEED_BACK_PATH);

@@ -119,15 +119,17 @@ public class PushMessageDataWrapperTest {
     @Test
     public void it_should_wrap_push_notification_data_from_intent() {
         Map<String, String> message = new HashMap<>();
-        message.put("pushId", "pushId");
-        message.put("campaignDate", "campaignDate");
+        message.put("customerId", "customerId");
+        message.put("nonce", "nonce");
         message.put("campaignId", "campaignId");
+        message.put("pushType", "pushType");
 
         PushMessageDataWrapper pushMessageDataWrapper = PushMessageDataWrapper.from(message);
 
-        assertEquals("pushId", pushMessageDataWrapper.getPushId());
-        assertEquals("campaignDate", pushMessageDataWrapper.getCampaignDate());
+        assertEquals("customerId", pushMessageDataWrapper.getCustomerId());
+        assertEquals("nonce", pushMessageDataWrapper.getCampaignNonce());
         assertEquals("campaignId", pushMessageDataWrapper.getCampaignId());
+        assertEquals("pushType", pushMessageDataWrapper.getPushType());
     }
 
     @Test
@@ -136,20 +138,23 @@ public class PushMessageDataWrapperTest {
         Bundle bundle = mock(Bundle.class);
         when(intent.getExtras()).thenReturn(bundle);
         Set<String> bundleKeys = new HashSet<>();
-        bundleKeys.add("pushId");
-        bundleKeys.add("campaignDate");
+        bundleKeys.add("customerId");
+        bundleKeys.add("nonce");
         bundleKeys.add("campaignId");
+        bundleKeys.add("pushType");
         when(bundle.keySet()).thenReturn(bundleKeys);
-        when(intent.getStringExtra("pushId")).thenReturn("pushId");
-        when(intent.getStringExtra("campaignDate")).thenReturn("campaignDate");
+        when(intent.getStringExtra("customerId")).thenReturn("customerId");
+        when(intent.getStringExtra("nonce")).thenReturn("nonce");
         when(intent.getStringExtra("campaignId")).thenReturn("campaignId");
+        when(intent.getStringExtra("pushType")).thenReturn("pushType");
 
         PushMessageDataWrapper pushMessageDataWrapper = PushMessageDataWrapper.from(intent);
 
-        assertEquals(3, pushMessageDataWrapper.getData().size());
-        assertEquals("pushId", pushMessageDataWrapper.getData().get("pushId"));
-        assertEquals("campaignDate", pushMessageDataWrapper.getData().get("campaignDate"));
+        assertEquals(4, pushMessageDataWrapper.getData().size());
+        assertEquals("customerId", pushMessageDataWrapper.getData().get("customerId"));
+        assertEquals("nonce", pushMessageDataWrapper.getData().get("nonce"));
         assertEquals("campaignId", pushMessageDataWrapper.getData().get("campaignId"));
+        assertEquals("pushType", pushMessageDataWrapper.getData().get("pushType"));
     }
 
 }
