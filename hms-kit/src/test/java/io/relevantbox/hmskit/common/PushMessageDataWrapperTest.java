@@ -122,14 +122,12 @@ public class PushMessageDataWrapperTest {
         message.put("customerId", "customerId");
         message.put("nonce", "nonce");
         message.put("campaignId", "campaignId");
-        message.put("pushType", "pushType");
 
         PushMessageDataWrapper pushMessageDataWrapper = PushMessageDataWrapper.from(message);
 
         assertEquals("customerId", pushMessageDataWrapper.getCustomerId());
         assertEquals("nonce", pushMessageDataWrapper.getCampaignNonce());
         assertEquals("campaignId", pushMessageDataWrapper.getCampaignId());
-        assertEquals("pushType", pushMessageDataWrapper.getPushType());
     }
 
     @Test

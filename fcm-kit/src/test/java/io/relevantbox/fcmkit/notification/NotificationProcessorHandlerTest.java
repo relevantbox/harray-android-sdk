@@ -75,7 +75,6 @@ public class NotificationProcessorHandlerTest {
         externalParameters.put("customerId", "customerId");
         externalParameters.put("campaignId", "campaignId");
         externalParameters.put("nonce", "nonce");
-        externalParameters.put("pushType", "pushType");
         externalParameters.put("url", "url");
         externalParameters.put("utm_source", "relevantbox");
         externalParameters.put("utm_medium", "utm_medium");
@@ -93,7 +92,7 @@ public class NotificationProcessorHandlerTest {
         assertEquals("campaignId", rbEventMap.get("campaignId"));
         assertEquals("customerId", rbEventMap.get("customerId"));
         assertEquals("nonce", rbEventMap.get("nonce"));
-        assertEquals("pushType", rbEventMap.get("pushType"));
+        assertEquals("fcmAppPush", rbEventMap.get("pushType"));
 
         verify(httpService).postJsonEncoded("serializedEntity", "feedback");
     }
@@ -106,7 +105,6 @@ public class NotificationProcessorHandlerTest {
         externalParameters.put("customerId", "customerId");
         externalParameters.put("campaignId", "campaignId");
         externalParameters.put("nonce", "nonce");
-        externalParameters.put("pushType", "pushType");
         externalParameters.put("url", "url");
         externalParameters.put("source", "relevantbox");
         externalParameters.put("utm_medium", "utm_medium");
@@ -124,7 +122,7 @@ public class NotificationProcessorHandlerTest {
         assertEquals("campaignId", rbEventMap.get("campaignId"));
         assertEquals("customerId", rbEventMap.get("customerId"));
         assertEquals("nonce", rbEventMap.get("nonce"));
-        assertEquals("pushType", rbEventMap.get("pushType"));
+        assertEquals("fcmAppPush", rbEventMap.get("pushType"));
 
         verify(httpService).postJsonEncoded("serializedEntity", "feedback");
     }

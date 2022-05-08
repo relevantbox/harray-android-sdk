@@ -92,10 +92,6 @@ public class PushMessageDataWrapper {
         return data.get(Constants.CAMPAIGN_ID_KEY);
     }
 
-    public String getPushType() {
-        return data.get(Constants.CAMPAIGN_PUSH_TYPE);
-    }
-
     public String getCustomerId() {
         return data.get(Constants.CUSTOMER_ID);
     }

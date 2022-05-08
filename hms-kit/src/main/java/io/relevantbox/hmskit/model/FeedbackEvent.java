@@ -9,14 +9,12 @@ public class FeedbackEvent {
     private final String nonce;
     private final String campaignId;
     private final String customerId;
-    private final String pushType;
 
-    public FeedbackEvent(String type, String nonce, String campaignId, String customerId, String pushType) {
+    public FeedbackEvent(String type, String nonce, String campaignId, String customerId) {
         this.type = type;
         this.nonce = nonce;
         this.campaignId = campaignId;
         this.customerId = customerId;
-        this.pushType = pushType;
 
     }
 
@@ -26,7 +24,7 @@ public class FeedbackEvent {
         feedbackEvent.put("nonce", nonce);
         feedbackEvent.put("campaignId", campaignId);
         feedbackEvent.put("customerId", customerId);
-        feedbackEvent.put("pushType", pushType);
+        feedbackEvent.put("pushType", "hmsAppPush");
         return feedbackEvent;
     }
 }

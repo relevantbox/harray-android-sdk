@@ -138,8 +138,7 @@ public class NotificationProcessorHandler {
             Map<String, Object> event = new FeedbackEvent("d",
                     pushMessageDataWrapper.getCampaignNonce(),
                     pushMessageDataWrapper.getCampaignId(),
-                    pushMessageDataWrapper.getCustomerId(),
-                    pushMessageDataWrapper.getPushType()
+                    pushMessageDataWrapper.getCustomerId()
             ).toMap();
 
             String serializedEntity = entitySerializerService.serializeToJson(event);
@@ -161,8 +160,7 @@ public class NotificationProcessorHandler {
                 Map<String, Object> event = new FeedbackEvent("o",
                         pushMessageDataWrapper.getCampaignNonce(),
                         pushMessageDataWrapper.getCampaignId(),
-                        pushMessageDataWrapper.getCustomerId(),
-                        pushMessageDataWrapper.getPushType()
+                        pushMessageDataWrapper.getCustomerId()
                 ).toMap();
 
                 String serializedEntity = entitySerializerService.serializeToJson(event);
