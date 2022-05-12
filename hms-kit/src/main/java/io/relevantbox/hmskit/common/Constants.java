@@ -7,7 +7,7 @@ public class Constants {
     public static final String PUSH_CHANNEL_DESCRIPTION = "Channel for relevantbox.io push message notification";
     public static final String PUSH_PAYLOAD_SOUND = "sound";
     public static final String PUSH_PAYLOAD_TITLE = "title";
-    public static final String PUSH_PAYLOAD_MESSAGE = "message";
+    public static final String PUSH_PAYLOAD_MESSAGE = "body";
     public static final String PUSH_PAYLOAD_BADGE = "badge";
     public static final String PUSH_PAYLOAD_IMAGE_URL = "image_url";
     public static final String PUSH_PAYLOAD_SOURCE = "source";
