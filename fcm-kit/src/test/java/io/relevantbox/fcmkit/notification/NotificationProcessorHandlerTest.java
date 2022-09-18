@@ -128,25 +128,6 @@ public class NotificationProcessorHandlerTest {
     }
 
     @Test
-    public void it_should_not_make_push_open_when_source_is_not_relevantbox_io() {
-
-        Map<String, String> externalParameters = new HashMap<>();
-        externalParameters.put("pushId", "pushId");
-        externalParameters.put("campaignId", "campaignId");
-        externalParameters.put("campaignDate", "campaignDate");
-        externalParameters.put("url", "url");
-        externalParameters.put("source", "mennio");
-        externalParameters.put("utm_medium", "utm_medium");
-        externalParameters.put("utm_campaign", "utm_campaign");
-        externalParameters.put("utm_term", "utm_term");
-        externalParameters.put("utm_content", "utm_content");
-
-        notificationProcessorHandler.pushMessageOpened(PushMessageDataWrapper.from(externalParameters));
-
-        verifyNoInteractions(httpService);
-    }
-
-    @Test
     public void it_should_construct_remove_device_token_event_and_make_api_call() throws UnsupportedEncodingException {
 
         ArgumentCaptor<Map<String, Object>> rbEventArgumentCaptor = ArgumentCaptor.forClass(Map.class);
