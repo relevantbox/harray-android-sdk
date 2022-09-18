@@ -31,10 +31,10 @@ public class NotificationProcessorHandler {
     private final DeviceService deviceService;
 
     public NotificationProcessorHandler(ApplicationContextHolder applicationContextHolder,
-            SessionContextHolder sessionContextHolder,
-            HttpService httpService,
-            EntitySerializerService entitySerializerService,
-            DeviceService deviceService) {
+                                        SessionContextHolder sessionContextHolder,
+                                        HttpService httpService,
+                                        EntitySerializerService entitySerializerService,
+                                        DeviceService deviceService) {
         this.applicationContextHolder = applicationContextHolder;
         this.sessionContextHolder = sessionContextHolder;
         this.httpService = httpService;
@@ -46,7 +46,7 @@ public class NotificationProcessorHandler {
         try {
             Map<String, Object> event = RBEvent.create("Collection", applicationContextHolder.getPersistentId(),
                     sessionContextHolder
-                    .getSessionIdAndExtendSession())
+                            .getSessionIdAndExtendSession())
                     .memberId(sessionContextHolder.getMemberId())
                     .addBody("name", "pushToken")
                     .addBody("type", "fcmToken")
@@ -65,7 +65,7 @@ public class NotificationProcessorHandler {
         try {
             Map<String, Object> event = RBEvent.create("TR", applicationContextHolder.getPersistentId(),
                     sessionContextHolder
-                    .getSessionIdAndExtendSession())
+                            .getSessionIdAndExtendSession())
                     .memberId(sessionContextHolder.getMemberId())
                     .addBody("name", "pushToken")
                     .addBody("type", "fcmToken")
@@ -105,16 +105,16 @@ public class NotificationProcessorHandler {
                 }
                 NotificationCompat.Builder notificationCompatBuilder =
                         NotificationCompatBuilder.create(applicationContext, httpService, deviceService)
-                        .withChannelId(notificationChannelId)
-                        .withApplicationLogo(pushMessageDataWrapper.getApplicationLogo())
-                        .withTitle(pushMessageDataWrapper.getTitle())
-                        .withSubtitle(pushMessageDataWrapper.getSubTitle())
-                        .withMessage(pushMessageDataWrapper.getMessage())
-                        .withBadge(pushMessageDataWrapper.getBadge())
-                        .withSound(pushMessageDataWrapper.getSound())
-                        .withImage(pushMessageDataWrapper.getImageUrl(), pushMessageDataWrapper.getMessage())
-                        .withIntent(data)
-                        .build();
+                                .withChannelId(notificationChannelId)
+                                .withApplicationLogo(pushMessageDataWrapper.getApplicationLogo())
+                                .withTitle(pushMessageDataWrapper.getTitle())
+                                .withSubtitle(pushMessageDataWrapper.getSubTitle())
+                                .withMessage(pushMessageDataWrapper.getMessage())
+                                .withBadge(pushMessageDataWrapper.getBadge())
+                                .withSound(pushMessageDataWrapper.getSound())
+                                .withImage(pushMessageDataWrapper.getImageUrl(), pushMessageDataWrapper.getMessage())
+                                .withIntent(data)
+                                .build();
 
                 notificationManager.notify(0, notificationCompatBuilder.build());
             }
@@ -155,20 +155,18 @@ public class NotificationProcessorHandler {
     }
 
     protected void pushMessageOpened(PushMessageDataWrapper pushMessageDataWrapper) {
-        if (pushMessageDataWrapper.getSource().equals(Constants.PUSH_CHANNEL_ID)) {
-            try {
-                Map<String, Object> event = new FeedbackEvent("o",
-                        pushMessageDataWrapper.getCampaignNonce(),
-                        pushMessageDataWrapper.getCampaignId(),
-                        pushMessageDataWrapper.getCustomerId()
-                ).toMap();
+        try {
+            Map<String, Object> event = new FeedbackEvent("o",
+                    pushMessageDataWrapper.getCampaignNonce(),
+                    pushMessageDataWrapper.getCampaignId(),
+                    pushMessageDataWrapper.getCustomerId()
+            ).toMap();
 
-                String serializedEntity = entitySerializerService.serializeToJson(event);
-                httpService.postJsonEncoded(serializedEntity, Constants.PUSH_FEED_BACK_PATH);
+            String serializedEntity = entitySerializerService.serializeToJson(event);
+            httpService.postJsonEncoded(serializedEntity, Constants.PUSH_FEED_BACK_PATH);
 
-            } catch (Exception e) {
-                RBLogger.log("Push opened event error: " + e.getMessage());
-            }
+        } catch (Exception e) {
+            RBLogger.log("Push opened event error: " + e.getMessage());
         }
     }
 }

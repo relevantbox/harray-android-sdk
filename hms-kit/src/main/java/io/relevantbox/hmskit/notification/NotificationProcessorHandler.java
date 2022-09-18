@@ -155,7 +155,6 @@ public class NotificationProcessorHandler {
     }
 
     protected void pushMessageOpened(PushMessageDataWrapper pushMessageDataWrapper) {
-        if (pushMessageDataWrapper.getSource().equals(Constants.PUSH_CHANNEL_ID)) {
             try {
                 Map<String, Object> event = new FeedbackEvent("o",
                         pushMessageDataWrapper.getCampaignNonce(),
@@ -169,6 +168,5 @@ public class NotificationProcessorHandler {
             } catch (Exception e) {
                 RBLogger.log("Push opened event error: " + e.getMessage());
             }
-        }
     }
 }

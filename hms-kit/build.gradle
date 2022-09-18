@@ -9,7 +9,7 @@ apply plugin: 'jacoco-android'
 
 archivesBaseName = 'hms-kit'
 group = "io.relevantbox"
-version = "3.2.7"
+version = "3.2.8"
 
 android {
     compileSdkVersion 29
@@ -19,7 +19,7 @@ android {
         minSdkVersion 19
         targetSdkVersion 29
         versionCode 1
-        versionName "3.2.7"
+        versionName "3.2.8"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'
@@ -88,7 +88,7 @@ publishing {
         androidSdk(MavenPublication) {
             groupId "io.relevantbox"
             artifactId "hms-kit"
-            version "3.2.7"
+            version "3.2.8"
             artifact "$buildDir/outputs/aar/hms-kit-release.aar"
         }
     }
