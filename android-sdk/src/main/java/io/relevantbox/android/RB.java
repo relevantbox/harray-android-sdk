@@ -46,6 +46,7 @@ public final class RB {
     protected InAppNotificationProcessorHandler inAppNotificationProcessorHandler;
     protected PushMessagesHistoryProcessorHandler pushMessagesHistoryProcessorHandler;
     protected HttpService httpService;
+    protected HttpService inAppNotificationsHttpService;
     protected DeviceService deviceService;
     protected RBPluginRegistry rbPluginRegistry;
 
@@ -57,6 +58,7 @@ public final class RB {
         this.sessionContextHolder = new SessionContextHolder();
 
         this.httpService = new HttpService(new HttpRequestFactory(), rbConfig.getSdkKey(), rbConfig.getCollectorUrl(), rbConfig.getApiUrl());
+        this.inAppNotificationsHttpService = new HttpService(new HttpRequestFactory(), rbConfig.getSdkKey(), rbConfig.getCollectorUrl(), rbConfig.getInAppNotificationsUrl());
         this.entitySerializerService = new EntitySerializerService(new EncodingService(), new JsonSerializerService());
         ChainProcessorHandler chainProcessorHandler = new ChainProcessorHandler();
         EventProcessorHandler eventProcessorHandler = new EventProcessorHandler(applicationContextHolder, sessionContextHolder, httpService, entitySerializerService, chainProcessorHandler);
@@ -71,16 +73,14 @@ public final class RB {
         this.recommendationProcessorHandler = new RecommendationProcessorHandler(applicationContextHolder, sessionContextHolder, httpService, rbConfig.getSdkKey(), jsonDeserializerService);
         this.browsingHistoryProcessorHandler = new BrowsingHistoryProcessorHandler(applicationContextHolder, sessionContextHolder, httpService, rbConfig.getSdkKey(), jsonDeserializerService);
         this.inAppNotificationProcessorHandler = new InAppNotificationProcessorHandler(
-                eventProcessorHandler, applicationContextHolder, sessionContextHolder, httpService, jsonDeserializerService, rbConfig);
+                eventProcessorHandler, applicationContextHolder, sessionContextHolder, inAppNotificationsHttpService, jsonDeserializerService, rbConfig);
         this.pushMessagesHistoryProcessorHandler = new PushMessagesHistoryProcessorHandler(sessionContextHolder, httpService, rbConfig.getSdkKey(), jsonDeserializerService);
 
         this.rbPluginRegistry = new RBPluginRegistry();
 
-        if(rbConfig.getInAppNotificationHandlerStrategy() == InAppNotificationHandlerStrategy.PageViewEvent){
+        if (rbConfig.getInAppNotificationHandlerStrategy() == InAppNotificationHandlerStrategy.PageViewEvent) {
             chainProcessorHandler.addHandler(inAppNotificationProcessorHandler);
         }
-
-
     }
 
     public static void configure(Context context, @NonNull RBConfig rbConfig) {

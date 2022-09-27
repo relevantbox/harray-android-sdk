@@ -14,4 +14,5 @@ public class Constants {
     public static final String ANDROID = "Android";
     public static final String RB_API_URL = "https://api.relevantbox.io:443";
     public static final String RB_COLLECTOR_URL = "https://c.relevantbox.io:443";
+    public static final String RB_IN_APP_NOTIFICATIONS_URL = "https://inapp.relevantbox.io:443";
 }
