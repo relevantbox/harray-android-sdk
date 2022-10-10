@@ -9,7 +9,7 @@ public class Constants {
     public static final String SDK_PERSISTENT_ID_KEY = "pid";
     public static final String PREF_COLLECTION_NAME = "RB_PREFS";
     public static final long SESSION_DURATION = 30 * 60 * 1000L;
-    public static final List<String> EXTERNAL_PARAMETER_KEYS = Collections.unmodifiableList(Arrays.asList("campaignId", "campaignDate", "pushId", "url", "utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"));
+    public static final List<String> FORBIDDEN_EXTERNAL_PARAMETER_KEYS = Collections.unmodifiableList(Arrays.asList("a", "b", "c", "d", "ts", "n", "s", "p"));
     public static final String UNKNOWN_PROPERTY_VALUE = "UNKNOWN";
     public static final String ANDROID = "Android";
     public static final String RB_API_URL = "https://api.relevantbox.io:443";

@@ -70,11 +70,10 @@ public class SessionContextHolder {
 
 
     public void updateExternalParameters(Map<String, Object> data) {
-        for (String eachKey : Constants.EXTERNAL_PARAMETER_KEYS) {
-            if (data.containsKey(eachKey)) {
-                externalParameters.put(eachKey, data.get(eachKey));
-            }
+        for (String eachKey : Constants.FORBIDDEN_EXTERNAL_PARAMETER_KEYS) {
+            data.remove(eachKey);
         }
+        externalParameters = data;
     }
 
     public SessionState getSessionState() {
