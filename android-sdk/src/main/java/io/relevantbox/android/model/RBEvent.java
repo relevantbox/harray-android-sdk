@@ -51,15 +51,15 @@ public class RBEvent {
     }
 
     public String getStringParameterValue(String key) {
-        if (h.containsKey(key)) {
-            return h.get(key).toString();
+        if (b.containsKey(key)) {
+            return b.get(key).toString();
         }
         return null;
     }
 
     public Double getDoubleParameterValue(String key) {
-        if (h.containsKey(key)) {
-            return Double.valueOf(h.get(key).toString());
+        if (b.containsKey(key)) {
+            return Double.valueOf(b.get(key).toString());
         }
         return null;
     }
