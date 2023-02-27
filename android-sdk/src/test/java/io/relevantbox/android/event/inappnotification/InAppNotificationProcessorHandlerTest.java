@@ -64,7 +64,7 @@ public class InAppNotificationProcessorHandlerTest {
 
         when(applicationContextHolder.getPersistentId()).thenReturn("pid");
         when(sessionContextHolder.getMemberId()).thenReturn("memberId");
-        inAppNotificationProcessorHandler.callAfter(null);
+        inAppNotificationProcessorHandler.callAfter(RBEvent.create("pageView", "", ""));
 
         verify(httpService).getApiRequest(eq("/in-app-notifications"), paramCaptor.capture(), any(ResponseBodyHandler.class), any(ResultConsumer.class));
         Map<String, Object> capturedParams = paramCaptor.getValue();
@@ -86,7 +86,7 @@ public class InAppNotificationProcessorHandlerTest {
         when(applicationContextHolder.getPersistentId()).thenReturn("pid");
         when(sessionContextHolder.getMemberId()).thenReturn(null);
         when(deviceService.getLang()).thenReturn("en");
-        inAppNotificationProcessorHandler.callAfter(null);
+        inAppNotificationProcessorHandler.callAfter(RBEvent.create("pageView", "", ""));
 
 
         verify(httpService).getApiRequest(eq("/in-app-notifications"), paramCaptor.capture(), any(ResponseBodyHandler.class), any(ResultConsumer.class));
