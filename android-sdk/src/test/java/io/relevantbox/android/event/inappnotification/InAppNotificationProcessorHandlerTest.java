@@ -64,12 +64,14 @@ public class InAppNotificationProcessorHandlerTest {
 
         when(applicationContextHolder.getPersistentId()).thenReturn("pid");
         when(sessionContextHolder.getMemberId()).thenReturn("memberId");
+        when(deviceService.getLang()).thenReturn("en");
         inAppNotificationProcessorHandler.callAfter(RBEvent.create("pageView", "", ""));
 
         verify(httpService).getApiRequest(eq("/in-app-notifications"), paramCaptor.capture(), any(ResponseBodyHandler.class), any(ResultConsumer.class));
         Map<String, Object> capturedParams = paramCaptor.getValue();
         assertEquals(capturedParams.get("sdkKey"), "sdk-key");
         assertEquals(capturedParams.get("source"), "android");
+        assertEquals(capturedParams.get("deviceLang"), "en");
         assertEquals(capturedParams.get("pid"), "pid");
         assertEquals(capturedParams.get("memberId"), "memberId");
     }
@@ -93,7 +95,7 @@ public class InAppNotificationProcessorHandlerTest {
         Map<String, Object> capturedParams = paramCaptor.getValue();
         assertEquals(capturedParams.get("sdkKey"), "sdk-key");
         assertEquals(capturedParams.get("source"), "android");
-        assertEquals(capturedParams.get("deviceLanguage"), "en");
+        assertEquals(capturedParams.get("deviceLang"), "en");
         assertEquals(capturedParams.get("pid"), "pid");
         assertEquals(capturedParams.get("memberId"), null);
     }
@@ -116,7 +118,7 @@ public class InAppNotificationProcessorHandlerTest {
         Map<String, Object> capturedParams = paramCaptor.getValue();
         assertEquals(capturedParams.get("sdkKey"), "sdk-key");
         assertEquals(capturedParams.get("source"), "android");
-        assertEquals(capturedParams.get("deviceLanguage"), "en");
+        assertEquals(capturedParams.get("deviceLang"), "en");
         assertEquals(capturedParams.get("pid"), "pid");
         assertEquals(capturedParams.get("pageType"), "homePage");
         assertEquals(capturedParams.get("memberId"), null);
