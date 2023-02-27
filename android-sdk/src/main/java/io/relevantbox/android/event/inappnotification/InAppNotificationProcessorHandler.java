@@ -23,8 +23,10 @@ import io.relevantbox.android.context.ApplicationContextHolder;
 import io.relevantbox.android.context.SessionContextHolder;
 import io.relevantbox.android.event.AfterPageViewEventHandler;
 import io.relevantbox.android.event.EventProcessorHandler;
+import io.relevantbox.android.model.RBEvent;
 import io.relevantbox.android.model.inappnotification.InAppNotificationHandlerStrategy;
 import io.relevantbox.android.model.inappnotification.InAppNotificationResponse;
+import io.relevantbox.android.service.DeviceService;
 import io.relevantbox.android.service.HttpService;
 import io.relevantbox.android.service.JsonDeserializerService;
 import io.relevantbox.android.utils.RBLogger;
@@ -41,7 +43,8 @@ public class InAppNotificationProcessorHandler implements AfterPageViewEventHand
     private final JsonDeserializerService jsonDeserializerService;
     private final SessionContextHolder sessionContextHolder;
     private final RBConfig rbConfig;
-    private final Map<String,Object> requestParameters = new HashMap<>();
+    private final DeviceService deviceService;
+    private final Map<String, Object> requestParameters = new HashMap<>();
 
     public InAppNotificationProcessorHandler(
             EventProcessorHandler eventProcessorHandler,
@@ -49,16 +52,17 @@ public class InAppNotificationProcessorHandler implements AfterPageViewEventHand
             SessionContextHolder sessionContextHolder,
             HttpService httpService,
             JsonDeserializerService jsonDeserializerService,
-            RBConfig rbConfig
-            ) {
+            RBConfig rbConfig,
+            DeviceService deviceService) {
         this.eventProcessorHandler = eventProcessorHandler;
         this.httpService = httpService;
         this.rbConfig = rbConfig;
         this.jsonDeserializerService = jsonDeserializerService;
         this.applicationContextHolder = applicationContextHolder;
         this.sessionContextHolder = sessionContextHolder;
+        this.deviceService = deviceService;
 
-        if(this.rbConfig.getInAppNotificationHandlerStrategy() == InAppNotificationHandlerStrategy.TimerBased) {
+        if (this.rbConfig.getInAppNotificationHandlerStrategy() == InAppNotificationHandlerStrategy.TimerBased) {
             ProcessLifecycleOwner.get().getLifecycle().addObserver(
                     new LifecycleObserver() {
                         @OnLifecycleEvent(Lifecycle.Event.ON_START)
@@ -154,16 +158,39 @@ public class InAppNotificationProcessorHandler implements AfterPageViewEventHand
     }
 
     @Override
-    public void callAfter(String pageType) {
+    public void callAfter(RBEvent event) {
         RBLogger.log("Trying to get xenn in-app notification");
         requestParameters.put("sdkKey", rbConfig.getSdkKey());
         requestParameters.put("pid", applicationContextHolder.getPersistentId());
+        requestParameters.put("deviceLang", deviceService.getLang());
         if (sessionContextHolder.getMemberId() != null) {
             requestParameters.put("memberId", sessionContextHolder.getMemberId());
         }
-        if(pageType!=null){
+        String pageType = event.getStringParameterValue("pageType");
+        if (pageType != null) {
             requestParameters.put("pageType", pageType);
         }
+
+        String entity = event.getStringParameterValue("entity");
+        if (entity != null) {
+            requestParameters.put("entity", entity);
+        }
+
+        String entityId = event.getStringParameterValue("entityId");
+        if (entityId != null) {
+            requestParameters.put("entityId", entityId);
+        }
+
+        String collectionId = event.getStringParameterValue("collectionId");
+        if (collectionId != null) {
+            requestParameters.put("collectionId", collectionId);
+        }
+
+        Double price = event.getDoubleParameterValue("price");
+        if (price != null) {
+            requestParameters.put("price", price);
+        }
+
         ResultConsumer<InAppNotificationResponse> callback = new ResultConsumer<InAppNotificationResponse>() {
             @Override
             public void consume(InAppNotificationResponse data) {

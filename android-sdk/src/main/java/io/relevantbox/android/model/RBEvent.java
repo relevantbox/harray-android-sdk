@@ -49,4 +49,18 @@ public class RBEvent {
         map.put("b", b);
         return map;
     }
+
+    public String getStringParameterValue(String key) {
+        if (h.containsKey(key)) {
+            return h.get(key).toString();
+        }
+        return null;
+    }
+
+    public Double getDoubleParameterValue(String key) {
+        if (h.containsKey(key)) {
+            return Double.valueOf(h.get(key).toString());
+        }
+        return null;
+    }
 }

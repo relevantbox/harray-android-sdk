@@ -15,6 +15,8 @@ import io.relevantbox.android.common.RBConfig;
 import io.relevantbox.android.context.ApplicationContextHolder;
 import io.relevantbox.android.context.SessionContextHolder;
 import io.relevantbox.android.event.EventProcessorHandler;
+import io.relevantbox.android.model.RBEvent;
+import io.relevantbox.android.service.DeviceService;
 import io.relevantbox.android.service.HttpService;
 import io.relevantbox.android.service.JsonDeserializerService;
 
@@ -48,14 +50,17 @@ public class InAppNotificationProcessorHandlerTest {
     @Mock
     private LinkClickHandler linkClickHandler;
 
+    @Mock
+    private DeviceService deviceService;
+
 
     @Test
     public void it_should_get_in_app_notifications() {
         RBConfig rbConfig = RBConfig.init("sdk-key").inAppNotificationLinkClickHandler(linkClickHandler);
 
         InAppNotificationProcessorHandler inAppNotificationProcessorHandler = new InAppNotificationProcessorHandler(
-                eventProcessorHandler, applicationContextHolder, sessionContextHolder, httpService, jsonDeserializerService, rbConfig
-        );
+                eventProcessorHandler, applicationContextHolder, sessionContextHolder, httpService, jsonDeserializerService, rbConfig,
+                deviceService);
 
         when(applicationContextHolder.getPersistentId()).thenReturn("pid");
         when(sessionContextHolder.getMemberId()).thenReturn("memberId");
@@ -75,17 +80,20 @@ public class InAppNotificationProcessorHandlerTest {
         RBConfig rbConfig = RBConfig.init("sdk-key").inAppNotificationLinkClickHandler(linkClickHandler);
 
         InAppNotificationProcessorHandler inAppNotificationProcessorHandler = new InAppNotificationProcessorHandler(
-                eventProcessorHandler, applicationContextHolder, sessionContextHolder, httpService,  jsonDeserializerService, rbConfig
-        );
+                eventProcessorHandler, applicationContextHolder, sessionContextHolder, httpService, jsonDeserializerService, rbConfig,
+                deviceService);
 
         when(applicationContextHolder.getPersistentId()).thenReturn("pid");
         when(sessionContextHolder.getMemberId()).thenReturn(null);
+        when(deviceService.getLang()).thenReturn("en");
         inAppNotificationProcessorHandler.callAfter(null);
+
 
         verify(httpService).getApiRequest(eq("/in-app-notifications"), paramCaptor.capture(), any(ResponseBodyHandler.class), any(ResultConsumer.class));
         Map<String, Object> capturedParams = paramCaptor.getValue();
         assertEquals(capturedParams.get("sdkKey"), "sdk-key");
         assertEquals(capturedParams.get("source"), "android");
+        assertEquals(capturedParams.get("deviceLanguage"), "en");
         assertEquals(capturedParams.get("pid"), "pid");
         assertEquals(capturedParams.get("memberId"), null);
     }
@@ -96,17 +104,19 @@ public class InAppNotificationProcessorHandlerTest {
         RBConfig rbConfig = RBConfig.init("sdk-key").inAppNotificationLinkClickHandler(linkClickHandler);
 
         InAppNotificationProcessorHandler inAppNotificationProcessorHandler = new InAppNotificationProcessorHandler(
-                eventProcessorHandler, applicationContextHolder, sessionContextHolder, httpService,  jsonDeserializerService, rbConfig
-        );
+                eventProcessorHandler, applicationContextHolder, sessionContextHolder, httpService, jsonDeserializerService, rbConfig,
+                deviceService);
 
         when(applicationContextHolder.getPersistentId()).thenReturn("pid");
         when(sessionContextHolder.getMemberId()).thenReturn(null);
-        inAppNotificationProcessorHandler.callAfter("homePage");
+        when(deviceService.getLang()).thenReturn("en");
+        inAppNotificationProcessorHandler.callAfter(RBEvent.create("pageView", "", "").addBody("pageType", "homePage"));
 
         verify(httpService).getApiRequest(eq("/in-app-notifications"), paramCaptor.capture(), any(ResponseBodyHandler.class), any(ResultConsumer.class));
         Map<String, Object> capturedParams = paramCaptor.getValue();
         assertEquals(capturedParams.get("sdkKey"), "sdk-key");
         assertEquals(capturedParams.get("source"), "android");
+        assertEquals(capturedParams.get("deviceLanguage"), "en");
         assertEquals(capturedParams.get("pid"), "pid");
         assertEquals(capturedParams.get("pageType"), "homePage");
         assertEquals(capturedParams.get("memberId"), null);

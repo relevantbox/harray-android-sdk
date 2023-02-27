@@ -73,7 +73,7 @@ public final class RB {
         this.recommendationProcessorHandler = new RecommendationProcessorHandler(applicationContextHolder, sessionContextHolder, httpService, rbConfig.getSdkKey(), jsonDeserializerService);
         this.browsingHistoryProcessorHandler = new BrowsingHistoryProcessorHandler(applicationContextHolder, sessionContextHolder, httpService, rbConfig.getSdkKey(), jsonDeserializerService);
         this.inAppNotificationProcessorHandler = new InAppNotificationProcessorHandler(
-                eventProcessorHandler, applicationContextHolder, sessionContextHolder, inAppNotificationsHttpService, jsonDeserializerService, rbConfig);
+                eventProcessorHandler, applicationContextHolder, sessionContextHolder, inAppNotificationsHttpService, jsonDeserializerService, rbConfig, deviceService);
         this.pushMessagesHistoryProcessorHandler = new PushMessagesHistoryProcessorHandler(sessionContextHolder, httpService, rbConfig.getSdkKey(), jsonDeserializerService);
 
         this.rbPluginRegistry = new RBPluginRegistry();

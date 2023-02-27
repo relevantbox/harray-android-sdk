@@ -13,7 +13,7 @@ public final class RBConfig {
     private final String sdkKey;
     private String collectorUrl = Constants.RB_COLLECTOR_URL;
     private String apiUrl = Constants.RB_API_URL;
-    private String inAppNotificationsUrl = Constants.RB_IN_APP_NOTIFICATIONS_URL;
+    private String inAppNotificationsUrl = Constants.RB_API_URL;
     private List<Class<? extends RBPlugin>> rbPlugins = new ArrayList<>();
     private LinkClickHandler inAppNotificationLinkClickHandler;
     private InAppNotificationHandlerStrategy inAppNotificationHandlerStrategy = InAppNotificationHandlerStrategy.PageViewEvent;

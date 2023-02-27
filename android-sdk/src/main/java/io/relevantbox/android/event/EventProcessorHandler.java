@@ -37,16 +37,16 @@ public class EventProcessorHandler {
 
 
     public void pageView(String pageType, Map<String, Object> params) {
-        Map<String, Object> pageViewEvent = RBEvent.create("PV", applicationContextHolder.getPersistentId(), sessionContextHolder.getSessionIdAndExtendSession())
+        RBEvent pageViewEvent = RBEvent.create("PV", applicationContextHolder.getPersistentId(), sessionContextHolder.getSessionIdAndExtendSession())
                 .addBody("pageType", pageType)
                 .memberId(sessionContextHolder.getMemberId())
                 .appendExtra(params)
-                .toMap();
+                ;
 
         try {
-            String serializedEvent = entitySerializerService.serializeToBase64(pageViewEvent);
+            String serializedEvent = entitySerializerService.serializeToBase64(pageViewEvent.toMap());
             httpService.postFormUrlEncoded(serializedEvent);
-            chainProcessorHandler.callAll(pageType);
+            chainProcessorHandler.callAll(pageViewEvent);
         } catch (Exception e) {
             RBLogger.log("Page View Event Error:" + e.getMessage());
         }

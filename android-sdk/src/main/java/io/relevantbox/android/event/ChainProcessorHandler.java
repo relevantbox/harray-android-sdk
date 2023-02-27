@@ -3,6 +3,8 @@ package io.relevantbox.android.event;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.relevantbox.android.model.RBEvent;
+
 public class ChainProcessorHandler {
     private List<AfterPageViewEventHandler> handlers = new ArrayList<>();
 
@@ -10,9 +12,9 @@ public class ChainProcessorHandler {
         this.handlers.add(afterPageViewEventHandler);
     }
 
-    public void callAll(String pageType){
+    public void callAll(RBEvent event){
         for (AfterPageViewEventHandler eachHandler : handlers) {
-            eachHandler.callAfter(pageType);
+            eachHandler.callAfter(event);
         }
     }
 }
