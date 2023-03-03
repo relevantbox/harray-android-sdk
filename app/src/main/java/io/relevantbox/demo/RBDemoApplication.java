@@ -14,7 +14,7 @@ public class RBDemoApplication extends Application {
         super.onCreate();
         RBConfig rbConfig =
                 RBConfig
-                        .init("RELEVANT-w9ZYuu4uMYkHWJf")
+                        .init("AND-f39a4f151eab43d5963f5c802bd20284")
                         .useRBPlugin(FcmKitPlugin.class).inAppNotificationLinkClickHandler(
                         new LinkClickHandler() {
                             @Override
@@ -22,7 +22,7 @@ public class RBDemoApplication extends Application {
 
                             }
                         }
-                );
+                ).apiUrl("https://test-api.relevantbox.io:443").collectorUrl("https://test-collector.relevantbox.io:443");
         RB.configure(this, rbConfig);
     }
 }

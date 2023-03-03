@@ -28,6 +28,7 @@ public final class RBConfig {
 
     public RBConfig apiUrl(String apiUrl) {
         this.apiUrl = UrlUtils.getValidUrl(apiUrl);
+        this.inAppNotificationsUrl = UrlUtils.getValidUrl(apiUrl);
         return this;
     }
 

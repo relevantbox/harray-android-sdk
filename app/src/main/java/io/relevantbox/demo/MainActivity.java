@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        RB.login("300");
+        RB.login("30ss0");
         RB.pushMessagesHistory().getPushMessagesHistory(10, new ResultConsumer<List<Map<String, String>>>() {
             @Override
             public void consume(List<Map<String, String>> data) {

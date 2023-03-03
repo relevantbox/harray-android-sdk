@@ -12,7 +12,7 @@ import io.relevantbox.android.utils.RandomValueUtils;
 
 public class ApplicationContextHolder {
 
-    private final String sdkVersion = "3.3.0";
+    private final String sdkVersion = "3.3.1";
     private String persistentId;
     private boolean newInstallation = false;
 
