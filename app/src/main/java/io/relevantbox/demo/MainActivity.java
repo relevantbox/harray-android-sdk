@@ -24,6 +24,7 @@ import java.util.Map;
 
 import io.relevantbox.android.RB;
 import io.relevantbox.android.common.ResultConsumer;
+import io.relevantbox.android.model.RBEvent;
 import io.relevantbox.android.utils.RBLogger;
 import io.relevantbox.fcmkit.FcmKitPlugin;
 
@@ -41,20 +42,21 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        RB.login("30ss0");
-        RB.pushMessagesHistory().getPushMessagesHistory(10, new ResultConsumer<List<Map<String, String>>>() {
+        RB.login("asdasdassdfds");
+        /**RB.pushMessagesHistory().getPushMessagesHistory(10, new ResultConsumer<List<Map<String, String>>>() {
             @Override
             public void consume(List<Map<String, String>> data) {
 
             }
-        });
+        });**/
         RB.eventing().pageView("homePage");
-        RB.eventing().actionResult("test Action");
-        RB.eventing().impression("productdetail");
-        RB.eventing().custom("customEvent", new HashMap<String, Object>());
 
-        RB.ecommerce().productView("1003", "small", 200d, 180d, "USD", null, "https://commercedemo.relevantbox.io/proteus-fitness-jackshirt.html");
-        RB.recommendations().getRecommendations("boxId", null, 4, new ResultConsumer<List<Map<String, String>>>() {
+        //RB.eventing().actionResult("test Action");
+        //RB.eventing().impression("productdetail");
+        //RB.eventing().custom("customEvent", new HashMap<String, Object>());
+
+        //RB.ecommerce().productView("1003", "small", 200d, 180d, "USD", null, "https://commercedemo.relevantbox.io/proteus-fitness-jackshirt.html");
+        /**RB.recommendations().getRecommendations("boxId", null, 4, new ResultConsumer<List<Map<String, String>>>() {
             @Override
             public void consume(List<Map<String, String>> data) {
                 RBLogger.log("Reco data is here! : " + data);
@@ -71,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
             public void consume(List<Map<String, String>> data) {
                 RBLogger.log("PushMessagesHistory data is here! : " + data);
             }
-        });
+        });**/
 
         Intent intent = getIntent();
         Log.d("Relevantbox", "Source:" + intent.getStringExtra("source"));
@@ -93,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 RB.logout();
+                RB.eventing().pageView("homePage");
                 RB.eventing().actionResult("click");
                 Snackbar.make(view, "Replace with your own action 2", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();

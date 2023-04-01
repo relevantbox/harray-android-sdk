@@ -10,6 +10,7 @@ public class InAppNotificationResponse {
     private String style;
     private String html;
     private String imageUrl;
+    private String position;
 
     @Nullable
     public static InAppNotificationResponse fromMap(Map<String, String> map) {
@@ -21,6 +22,9 @@ public class InAppNotificationResponse {
         response.style = map.get("style");
         response.html = map.get("html");
         response.imageUrl = map.get("imageUrl");
+        if(map.containsKey("position")){
+            response.position = map.get("position");
+        }
         return response;
     }
 
@@ -38,5 +42,13 @@ public class InAppNotificationResponse {
 
     public String getImageUrl() {
         return imageUrl;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
     }
 }

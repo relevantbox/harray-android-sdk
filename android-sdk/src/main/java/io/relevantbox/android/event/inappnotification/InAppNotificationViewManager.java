@@ -25,7 +25,6 @@ import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 
 public class InAppNotificationViewManager {
 
-    private static final int POPUP_WINDOW_PADDING = 16;
     private final int horizontalWindowMargin;
 
     private final Activity activity;
@@ -48,7 +47,7 @@ public class InAppNotificationViewManager {
         this.linkClickHandler = linkClickHandler;
         this.showHandler = showHandler;
         this.closeHandler = closeHandler;
-        this.horizontalWindowMargin = dpToPx(60);
+        this.horizontalWindowMargin = dpToPx(0);
     }
 
     public void show() {
@@ -67,12 +66,12 @@ public class InAppNotificationViewManager {
         webView.addJavascriptInterface(new JavaScriptInterface(this), JavaScriptInterface.JS_OBJ_NAME);
         webView.loadData(htmlBase64Str, "text/html; charset=utf-8", "base64");
 
-        popupWindow = new PopupWindow(webView, getWindowMaxSizeX(activity), 1);
+        popupWindow = new PopupWindow(webView, getWindowMaxSizeX(activity), 0);
         popupWindow.setTouchable(true);
         popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         popupWindow.showAtLocation(
                 activity.getWindow().getDecorView().getRootView(),
-                Gravity.CENTER,
+                getGravity(inAppNotificationResponse),
                 0,
                 0);
         showHandler.run();
@@ -95,10 +94,15 @@ public class InAppNotificationViewManager {
             public void run() {
                 popupWindow.dismiss();
                 webView.setLayoutParams(new LinearLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT));
-                popupWindow.setHeight(dpToPx(webView.getContentHeight() + POPUP_WINDOW_PADDING));
+                if (getGravity(inAppNotificationResponse) == Gravity.FILL) {
+                    popupWindow.setHeight(activity.getWindow().getDecorView().getHeight());
+
+                } else {
+                    popupWindow.setHeight(dpToPx(webView.getContentHeight()));
+                }
                 popupWindow.showAtLocation(
                         activity.getWindow().getDecorView().getRootView(),
-                        Gravity.CENTER,
+                        getGravity(inAppNotificationResponse),
                         0,
                         0);
             }
@@ -138,5 +142,20 @@ public class InAppNotificationViewManager {
 
     private static int dpToPx(int dp) {
         return (int) (dp * Resources.getSystem().getDisplayMetrics().density);
+    }
+
+    private int getGravity(InAppNotificationResponse inAppNotificationResponse) {
+        if ("center".equals(inAppNotificationResponse.getPosition())) {
+            return Gravity.CENTER;
+        } else if ("top".equals(inAppNotificationResponse.getPosition())) {
+            return Gravity.TOP;
+        } else if ("left".equals(inAppNotificationResponse.getPosition())) {
+            return Gravity.LEFT;
+        } else if ("right".equals(inAppNotificationResponse.getPosition())) {
+            return Gravity.RIGHT;
+        } else if ("full".equals(inAppNotificationResponse.getPosition())) {
+            return Gravity.FILL;
+        }
+        return Gravity.CENTER;
     }
 }
