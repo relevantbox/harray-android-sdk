@@ -32,6 +32,7 @@ public class InAppNotificationViewManager {
     private final LinkClickHandler linkClickHandler;
     private final Runnable showHandler;
     private final Runnable closeHandler;
+    private final Runnable clickHandler;
 
     private WebView webView;
     private PopupWindow popupWindow;
@@ -41,12 +42,14 @@ public class InAppNotificationViewManager {
             InAppNotificationResponse inAppNotificationResponse,
             LinkClickHandler linkClickHandler,
             Runnable showHandler,
-            Runnable closeHandler) {
+            Runnable closeHandler,
+            Runnable clickHandler) {
         this.activity = activity;
         this.inAppNotificationResponse = inAppNotificationResponse;
         this.linkClickHandler = linkClickHandler;
         this.showHandler = showHandler;
         this.closeHandler = closeHandler;
+        this.clickHandler = clickHandler;
         this.horizontalWindowMargin = dpToPx(0);
     }
 
@@ -112,6 +115,7 @@ public class InAppNotificationViewManager {
     public void triggerUserDefinedLinkClickHandler(String link) {
         if (linkClickHandler != null) {
             RBLogger.log("User defined link click handler trigger for link:" + link);
+            clickHandler.run();
             linkClickHandler.handle(link);
         } else {
             RBLogger.log("No user defined link click handler defined for link:" + link);

@@ -116,7 +116,10 @@ public class InAppNotificationProcessorHandler implements AfterPageViewEventHand
     private void delayShowUntilAvailable(final Activity activity, final InAppNotificationResponse inAppNotificationResponse) {
         if (isActivityReady(activity)) {
             new InAppNotificationViewManager(
-                    activity, inAppNotificationResponse, rbConfig.getInAppNotificationLinkClickHandler(), createShowEventHandler(inAppNotificationResponse), createCloseEventHandler(inAppNotificationResponse)
+                    activity, inAppNotificationResponse, rbConfig.getInAppNotificationLinkClickHandler(),
+                    createShowEventHandler(inAppNotificationResponse),
+                    createCloseEventHandler(inAppNotificationResponse),
+                    createClickEventHandler(inAppNotificationResponse)
             ).show();
         } else {
             new Handler().postDelayed(new Runnable() {
@@ -153,6 +156,19 @@ public class InAppNotificationProcessorHandler implements AfterPageViewEventHand
                 eventParams.put("id", inAppNotificationResponse.getId());
                 eventParams.put("action", "close");
                 eventProcessorHandler.actionResult("bannerClose", eventParams);
+            }
+        };
+    }
+
+    private Runnable createClickEventHandler(final InAppNotificationResponse inAppNotificationResponse) {
+        return new Runnable() {
+            @Override
+            public void run() {
+                Map<String, Object> eventParams = new HashMap<>();
+                eventParams.put("entity", "banners");
+                eventParams.put("id", inAppNotificationResponse.getId());
+                eventParams.put("action", "click");
+                eventProcessorHandler.actionResult("bannerClick", eventParams);
             }
         };
     }

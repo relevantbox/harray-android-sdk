@@ -15,8 +15,9 @@ public class RBDemoApplication extends Application {
         RBConfig rbConfig =
                 RBConfig
                         .init("AND-f39a4f151eab43d5963f5c802bd20284")
-                        .useRBPlugin(FcmKitPlugin.class).inAppNotificationLinkClickHandler(new XennInAppCallbackHandler())
-                        .apiUrl("https://test-api.relevantbox.io:443")
+                        .useRBPlugin(FcmKitPlugin.class).inAppNotificationLinkClickHandler(link -> {
+
+                }).apiUrl("https://test-api.relevantbox.io:443")
                         .collectorUrl("https://test-collector.relevantbox.io:443");
         RB.configure(this, rbConfig);
     }
