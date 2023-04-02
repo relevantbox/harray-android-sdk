@@ -115,8 +115,8 @@ public class InAppNotificationViewManager {
     public void triggerUserDefinedLinkClickHandler(String link) {
         if (linkClickHandler != null) {
             RBLogger.log("User defined link click handler trigger for link:" + link);
-            clickHandler.run();
             linkClickHandler.handle(link);
+            clickHandler.run();
         } else {
             RBLogger.log("No user defined link click handler defined for link:" + link);
         }
